@@ -1,0 +1,17 @@
+.max-w-800 {
+  max-width: 800px;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.is-invalid {
+  border-color: var(--color-error) !important;
+}
+
+.invalid-feedback {
+  color: var(--color-error);
+  font-size: 0.85rem;
+}

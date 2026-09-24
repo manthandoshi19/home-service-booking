@@ -1,0 +1,47 @@
+/* Hero Placeholder Box */
+.hero-image-box {
+  background-color: var(--color-bg-main);
+  border-color: var(--color-border) !important;
+}
+
+.hero-placeholder-inner {
+  border: 2px dashed var(--color-border);
+  min-height: 260px;
+}
+
+/* Service Card Hover & Transition Effects */
+.service-card {
+  border-color: var(--color-border) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md) !important;
+  border-color: var(--color-primary-light) !important;
+}
+
+.service-icon-wrap {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Step Card Styling */
+.step-card {
+  transition: transform 0.2s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-2px);
+}
+
+.step-badge {
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+}
+
+.max-w-700 {
+  max-width: 700px;
+}

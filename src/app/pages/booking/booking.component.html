@@ -1,0 +1,203 @@
+<div class="booking-page section-padding bg-light min-vh-100">
+  <div class="container">
+    <!-- Breadcrumb Navigation -->
+    <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb small">
+        <li class="breadcrumb-item"><a routerLink="/" class="text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item"><a routerLink="/services" class="text-decoration-none">Services</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Service Booking</li>
+      </ol>
+    </nav>
+
+    <!-- Page Title -->
+    <div class="text-center mb-4 mb-md-5">
+      <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-2 rounded-pill mb-2 border border-primary-subtle">
+        Step 1 of Booking
+      </span>
+      <h1 class="display-6 fw-bold text-dark mb-2">Book Your Service</h1>
+      <p class="section-subtitle">
+        Fill in your contact and scheduling details below to proceed with your booking.
+      </p>
+    </div>
+
+    <!-- Booking Form Card -->
+    <div class="row g-4 justify-content-center">
+      <!-- Selected Service Summary Card -->
+      <div class="col-12 col-lg-4">
+        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white sticky-lg-top" style="top: 100px;">
+          <h4 class="h5 text-dark fw-bold mb-3 pb-2 border-bottom">Selected Service</h4>
+          
+          <div *ngIf="selectedService" class="mb-4">
+            <span class="badge bg-primary-subtle text-primary border px-2 py-1 rounded-pill small mb-2">
+              {{ selectedService.category }}
+            </span>
+            <h3 class="h5 text-dark fw-bold mb-2">{{ selectedService.name }}</h3>
+            <p class="text-muted small mb-3">{{ selectedService.description }}</p>
+
+            <div class="d-flex align-items-center justify-content-between p-3 bg-light rounded-3 mb-3">
+              <span class="text-muted small">Est. Duration</span>
+              <strong class="text-dark small">{{ selectedService.duration }}</strong>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between p-3 bg-primary-subtle rounded-3">
+              <span class="text-dark font-semibold">Sample Flat Price</span>
+              <strong class="h4 text-primary fw-bold mb-0">${{ selectedService.price }}</strong>
+            </div>
+          </div>
+
+          <a routerLink="/services" class="btn btn-sm btn-outline-custom w-100 text-center mt-2">
+            Change Service
+          </a>
+        </div>
+      </div>
+
+      <!-- Form Inputs Column -->
+      <div class="col-12 col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
+          <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()" novalidate>
+
+            <!-- Service Selection Field -->
+            <div class="mb-4">
+              <label for="serviceId" class="form-label text-dark fw-semibold">Service Category & Name</label>
+              <select
+                id="serviceId"
+                formControlName="serviceId"
+                class="form-select py-2"
+                [ngClass]="{ 'is-invalid': isFieldInvalid('serviceId') }">
+                @for (s of availableServices; track s.id) {
+                  <option [value]="s.id">{{ s.name }} ({{ s.category }} - ${{ s.price }})</option>
+                }
+              </select>
+            </div>
+
+            <h5 class="fw-bold text-dark mb-3 pt-2 border-top">Customer Details</h5>
+
+            <!-- Full Name -->
+            <div class="mb-3">
+              <label for="customerName" class="form-label text-dark fw-semibold">Full Name *</label>
+              <input
+                type="text"
+                id="customerName"
+                formControlName="customerName"
+                class="form-control py-2"
+                placeholder="e.g. Rahul Sharma"
+                [ngClass]="{ 'is-invalid': isFieldInvalid('customerName') }"
+              />
+              <div *ngIf="isFieldInvalid('customerName')" class="invalid-feedback">
+                Full Name is required (minimum 2 characters).
+              </div>
+            </div>
+
+            <!-- Phone & Email Row -->
+            <div class="row g-3 mb-3">
+              <div class="col-12 col-md-6">
+                <label for="customerPhone" class="form-label text-dark fw-semibold">Phone Number *</label>
+                <input
+                  type="tel"
+                  id="customerPhone"
+                  formControlName="customerPhone"
+                  class="form-control py-2"
+                  placeholder="10-digit mobile number (e.g. 9876543210)"
+                  [ngClass]="{ 'is-invalid': isFieldInvalid('customerPhone') }"
+                />
+                <div *ngIf="isFieldInvalid('customerPhone')" class="invalid-feedback">
+                  Please enter a valid 10-digit Indian mobile number.
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <label for="customerEmail" class="form-label text-dark fw-semibold">Email Address *</label>
+                <input
+                  type="email"
+                  id="customerEmail"
+                  formControlName="customerEmail"
+                  class="form-control py-2"
+                  placeholder="e.g. rahul@example.com"
+                  [ngClass]="{ 'is-invalid': isFieldInvalid('customerEmail') }"
+                />
+                <div *ngIf="isFieldInvalid('customerEmail')" class="invalid-feedback">
+                  Please enter a valid email address.
+                </div>
+              </div>
+            </div>
+
+            <!-- Service Address -->
+            <div class="mb-4">
+              <label for="address" class="form-label text-dark fw-semibold">Service Address *</label>
+              <textarea
+                id="address"
+                formControlName="address"
+                rows="3"
+                class="form-control"
+                placeholder="House/Flat No., Building, Street Name, Area"
+                [ngClass]="{ 'is-invalid': isFieldInvalid('address') }"></textarea>
+              <div *ngIf="isFieldInvalid('address')" class="invalid-feedback">
+                Service address is required.
+              </div>
+            </div>
+
+            <h5 class="fw-bold text-dark mb-3 pt-2 border-top">Appointment Details</h5>
+
+            <!-- Date & Time Row -->
+            <div class="row g-3 mb-4">
+              <div class="col-12 col-md-6">
+                <label for="preferredDate" class="form-label text-dark fw-semibold">Preferred Date *</label>
+                <input
+                  type="date"
+                  id="preferredDate"
+                  formControlName="preferredDate"
+                  [min]="minDate"
+                  class="form-control py-2"
+                  [ngClass]="{ 'is-invalid': isFieldInvalid('preferredDate') }"
+                />
+                <div *ngIf="isFieldInvalid('preferredDate')" class="invalid-feedback">
+                  <span *ngIf="bookingForm.get('preferredDate')?.hasError('required')">Preferred date is required.</span>
+                  <span *ngIf="bookingForm.get('preferredDate')?.hasError('pastDate')">Date cannot be in the past.</span>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <label for="preferredTime" class="form-label text-dark fw-semibold">Preferred Time Slot *</label>
+                <select
+                  id="preferredTime"
+                  formControlName="preferredTime"
+                  class="form-select py-2"
+                  [ngClass]="{ 'is-invalid': isFieldInvalid('preferredTime') }">
+                  <option value="" disabled>-- Select a Time Slot --</option>
+                  @for (slot of timeSlots; track slot) {
+                    <option [value]="slot">{{ slot }}</option>
+                  }
+                </select>
+                <div *ngIf="isFieldInvalid('preferredTime')" class="invalid-feedback">
+                  Please select a time slot.
+                </div>
+              </div>
+            </div>
+
+            <!-- Special Notes -->
+            <div class="mb-4">
+              <label for="specialNotes" class="form-label text-dark fw-semibold">Special Notes / Instructions (Optional)</label>
+              <input
+                type="text"
+                id="specialNotes"
+                formControlName="specialNotes"
+                class="form-control py-2"
+                placeholder="Any specific requests or directions..."
+              />
+            </div>
+
+            <!-- Submit Action -->
+            <div class="pt-3 border-top d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3">
+              <a routerLink="/services" class="btn btn-outline-custom w-100 w-sm-auto">
+                Cancel
+              </a>
+              <button type="submit" class="btn btn-primary-custom btn-lg w-100 w-sm-auto">
+                Proceed to Payment
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

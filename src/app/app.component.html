@@ -1,0 +1,78 @@
+<!-- Header / Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm py-3">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2 text-primary-light" routerLink="/" (click)="navigateToSection('home')">
+      <div class="brand-badge bg-primary text-white rounded px-2 py-1 fs-6 fw-bold">HS</div>
+      <span class="fw-bold fs-5 text-white">{{ brandName }}</span>
+    </a>
+    
+    <button class="navbar-toggler border-0 shadow-none" type="button" (click)="toggleNavbar()" aria-controls="primaryNavbar" [attr.aria-expanded]="!isNavCollapsed" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" [ngClass]="{ 'show': !isNavCollapsed }" id="primaryNavbar">
+      <ul class="navbar-nav ms-auto mb-3 mb-lg-0 me-lg-4 gap-lg-2">
+        <li class="nav-item">
+          <a class="nav-link text-light fw-medium px-lg-3" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="navigateToSection('home')">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light fw-medium px-lg-3" routerLink="/services" routerLinkActive="active" (click)="isNavCollapsed = true">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light fw-medium px-lg-3" (click)="navigateToSection('how-it-works')" style="cursor: pointer;">How It Works</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light fw-medium px-lg-3" (click)="navigateToSection('why-us')" style="cursor: pointer;">About / Why Us</a>
+        </li>
+      </ul>
+      <div class="d-flex">
+        <a routerLink="/services" class="btn btn-primary-custom w-100 w-lg-auto text-center" (click)="isNavCollapsed = true">
+          Explore Services
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Router View -->
+<router-outlet></router-outlet>
+
+<!-- Footer -->
+<footer class="bg-dark text-light pt-5 pb-4 border-top border-secondary">
+  <div class="container">
+    <div class="row g-4 mb-4">
+      <div class="col-12 col-md-5">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <div class="brand-badge bg-primary text-white rounded px-2 py-1 fs-6 fw-bold">HS</div>
+          <span class="fw-bold fs-5 text-white">{{ brandName }}</span>
+        </div>
+        <p class="text-secondary small pe-md-4 mb-0">
+          Home services marketplace project connecting customers with professionals for cleaning, plumbing, electrical, and AC repair services.
+        </p>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <h5 class="text-white h6 fw-semibold mb-3">Quick Navigation</h5>
+        <ul class="list-unstyled small mb-0">
+          <li class="mb-2"><a routerLink="/" (click)="navigateToSection('home')" class="text-secondary text-decoration-none hover-white">Home</a></li>
+          <li class="mb-2"><a routerLink="/services" (click)="isNavCollapsed = true" class="text-secondary text-decoration-none hover-white">Services</a></li>
+          <li class="mb-2"><a (click)="navigateToSection('how-it-works')" class="text-secondary text-decoration-none hover-white" style="cursor: pointer;">How It Works</a></li>
+          <li class="mb-2"><a (click)="navigateToSection('why-us')" class="text-secondary text-decoration-none hover-white" style="cursor: pointer;">Why Choose Us</a></li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-md-4">
+        <h5 class="text-white h6 fw-semibold mb-3">Project Contact Placeholder</h5>
+        <ul class="list-unstyled small text-secondary mb-0">
+          <li class="mb-2">Support: support&#64;homeservices.example</li>
+          <li class="mb-2">Service Hours: Mon - Sat: 8:00 AM - 8:00 PM</li>
+          <li class="mb-2">Location: Regional Service Area</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pt-4 border-top border-secondary text-center text-secondary small">
+      <p class="mb-0">&copy; 2026 {{ brandName }}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

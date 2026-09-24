@@ -1,0 +1,12 @@
+.confirmation-page {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+.max-w-700 {
+  max-width: 700px;
+}
+
+.success-icon-wrap {
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}

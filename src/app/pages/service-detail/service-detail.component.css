@@ -1,0 +1,15 @@
+.service-icon-wrap {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  color: var(--color-text-subtle);
+}
+
+.max-w-700 {
+  max-width: 700px;
+}

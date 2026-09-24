@@ -1,0 +1,163 @@
+<div class="payment-page section-padding bg-light min-vh-100">
+  <div class="container">
+    <!-- Breadcrumb Navigation -->
+    <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb small">
+        <li class="breadcrumb-item"><a routerLink="/" class="text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item"><a routerLink="/services" class="text-decoration-none">Services</a></li>
+        <li class="breadcrumb-item"><a routerLink="/booking" class="text-decoration-none">Booking</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Simulated Payment</li>
+      </ol>
+    </nav>
+
+    <!-- Case A: Valid Active Booking Found -->
+    <div *ngIf="booking; else noBooking">
+      <div class="text-center mb-4 mb-md-5">
+        <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-2 rounded-pill mb-2 border border-primary-subtle">
+          Step 2 of Booking
+        </span>
+        <h1 class="display-6 fw-bold text-dark mb-2">Simulated Payment Step</h1>
+        <p class="section-subtitle">
+          Review your booking summary and complete the simulated QR code payment step.
+        </p>
+      </div>
+
+      <!-- Main Two-Column Layout -->
+      <div class="row g-4 justify-content-center">
+        <!-- Left Column: Booking Summary -->
+        <div class="col-12 col-lg-7">
+          <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white h-100">
+            <h3 class="h4 text-dark fw-bold mb-3 pb-2 border-bottom">Booking Summary</h3>
+
+            <div class="mb-4">
+              <span class="badge bg-primary-subtle text-primary border px-2 py-1 rounded-pill small mb-2">
+                {{ booking.serviceCategory }}
+              </span>
+              <h4 class="h5 text-dark fw-bold mb-1">{{ booking.serviceName }}</h4>
+              <p class="text-muted small mb-3">Estimated Duration: <strong>{{ booking.serviceDuration }}</strong></p>
+
+              <div class="d-flex align-items-center justify-content-between p-3 bg-light rounded-3 mb-3 border">
+                <span class="text-muted small fw-medium">Flat Service Rate</span>
+                <span class="h4 text-primary fw-bold mb-0">${{ booking.servicePrice }}</span>
+              </div>
+            </div>
+
+            <h4 class="h5 text-dark fw-bold mb-3 pt-2 border-top">Customer & Location Details</h4>
+
+            <div class="row g-3 mb-3">
+              <div class="col-12 col-md-6">
+                <span class="text-muted small d-block">Full Name:</span>
+                <span class="text-dark fw-medium">{{ booking.customerName }}</span>
+              </div>
+              <div class="col-12 col-md-6">
+                <span class="text-muted small d-block">Mobile Phone:</span>
+                <span class="text-dark fw-medium">{{ booking.customerPhone }}</span>
+              </div>
+              <div class="col-12 col-md-6">
+                <span class="text-muted small d-block">Email Address:</span>
+                <span class="text-dark fw-medium">{{ booking.customerEmail }}</span>
+              </div>
+              <div class="col-12 col-md-6">
+                <span class="text-muted small d-block">Scheduled Date & Time:</span>
+                <span class="text-dark fw-medium">{{ booking.preferredDate }} | {{ booking.preferredTime }}</span>
+              </div>
+              <div class="col-12">
+                <span class="text-muted small d-block">Service Address:</span>
+                <span class="text-dark fw-medium">{{ booking.address }}</span>
+              </div>
+              <div *ngIf="booking.specialNotes" class="col-12">
+                <span class="text-muted small d-block">Special Instructions:</span>
+                <span class="text-dark fst-italic">{{ booking.specialNotes }}</span>
+              </div>
+            </div>
+
+            <div class="mt-auto pt-3 border-top d-flex align-items-center justify-content-between">
+              <span class="text-muted small">Payment Status:</span>
+              <span class="badge" [ngClass]="isPaymentConfirmed ? 'bg-success-subtle text-success border border-success-subtle' : 'bg-warning-subtle text-warning border border-warning-subtle'">
+                {{ isPaymentConfirmed ? 'Paid (Simulated)' : 'Pending Payment' }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Simulated QR Payment Section -->
+        <div class="col-12 col-lg-5">
+          <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white text-center h-100">
+            <h3 class="h4 text-dark fw-bold mb-2">Simulated QR Code</h3>
+            <p class="text-muted small mb-4">Scan the code or click confirm to complete payment simulation.</p>
+
+            <!-- QR Code Graphic Asset -->
+            <div class="qr-container mx-auto p-3 bg-light rounded-4 border mb-4 d-inline-block shadow-xs">
+              <img src="assets/qr-code.svg" alt="Simulated Payment QR Code" class="img-fluid" style="width: 180px; height: 180px;" />
+            </div>
+
+            <div class="p-3 bg-light rounded-3 text-start small mb-4 border">
+              <strong class="d-block text-dark mb-1">Instructions:</strong>
+              <ol class="ps-3 mb-0 text-muted">
+                <li>Scan the QR code using any payment scanner (simulated).</li>
+                <li>Verify the total amount of <strong>${{ booking.servicePrice }}</strong>.</li>
+                <li>Click <strong>"Confirm Payment"</strong> to mark the payment as paid in memory.</li>
+              </ol>
+            </div>
+
+            <!-- Academic Disclaimer -->
+            <div class="alert alert-warning border-warning small text-start mb-4" role="alert">
+              <svg width="16" height="16" fill="currentColor" class="me-2" viewBox="0 0 16 16">
+                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+              </svg>
+              <strong>Simulated Payment:</strong> This is a demonstration step. No real money or bank transactions occur.
+            </div>
+
+            <!-- Payment Success State / Action Button -->
+            <div *ngIf="!isPaymentConfirmed; else confirmedState">
+              <button class="btn btn-primary-custom btn-lg w-100 mb-2" (click)="confirmPayment()">
+                Confirm Payment
+              </button>
+              <a routerLink="/booking" class="btn btn-sm btn-link text-muted text-decoration-none">
+                Back to Edit Booking
+              </a>
+            </div>
+
+            <ng-template #confirmedState>
+              <div class="p-3 bg-success-subtle text-success rounded-3 border border-success-subtle mb-3">
+                <svg width="24" height="24" fill="currentColor" class="mb-1" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l5.002-6.503a.75.75 0 0 0-.022-1.077z"/>
+                </svg>
+                <strong class="d-block">Payment Confirmed!</strong>
+                <span class="small">Payment status updated to paid in memory.</span>
+              </div>
+              <a routerLink="/confirmation" class="btn btn-primary-custom w-100 mb-2">
+                View Booking Confirmation
+              </a>
+              <a routerLink="/services" class="btn btn-outline-custom w-100">
+                Return to Services
+              </a>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case B: Missing Booking State Handling -->
+    <ng-template #noBooking>
+      <div class="card border-0 shadow-sm rounded-4 p-5 text-center bg-white my-5 max-w-700 mx-auto">
+        <div class="py-4">
+          <div class="empty-icon-wrap bg-light text-muted rounded-circle mx-auto d-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
+            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <h3 class="h4 text-dark fw-bold mb-2">No Active Booking Found</h3>
+          <p class="text-muted small mb-4">
+            You must select a service and provide booking details before accessing the payment page.
+          </p>
+          <a routerLink="/services" class="btn btn-primary-custom">
+            Back to Services
+          </a>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

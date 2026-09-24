@@ -1,0 +1,35 @@
+.service-card {
+  border-color: var(--color-border) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md) !important;
+  border-color: var(--color-primary-light) !important;
+}
+
+.service-icon-wrap {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-group-text, .form-control {
+  border-color: var(--color-border);
+}
+
+.form-control:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.transition-all {
+  transition: all 0.2s ease;
+}
+
+.max-w-700 {
+  max-width: 700px;
+}

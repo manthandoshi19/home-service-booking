@@ -1,0 +1,20 @@
+.payment-page {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+.qr-container {
+  display: inline-block;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.qr-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.max-w-700 {
+  max-width: 700px;
+}
