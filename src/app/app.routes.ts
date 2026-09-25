@@ -5,9 +5,11 @@ import { ServiceDetailComponent } from './pages/service-detail/service-detail.co
 import { BookingComponent } from './pages/booking/booking.component';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { ConfirmationComponent } from './pages/confirmation/confirmation.component';
+import { LiveDispatchComponent } from './pages/live-dispatch/live-dispatch.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'live-dispatch', component: LiveDispatchComponent },
   { path: 'services', component: ServicesComponent },
   { path: 'services/:id', component: ServiceDetailComponent },
   { path: 'booking', component: BookingComponent },

@@ -1,76 +1,128 @@
-<div class="booking-page section-padding bg-light min-vh-100">
+<div class="booking-page section-padding bg-slate-50 min-vh-100" style="background-color: #F8FAFC;">
   <div class="container">
-    <!-- Breadcrumb Navigation -->
-    <nav aria-label="breadcrumb" class="mb-4">
-      <ol class="breadcrumb small">
-        <li class="breadcrumb-item"><a routerLink="/" class="text-decoration-none">Home</a></li>
-        <li class="breadcrumb-item"><a routerLink="/services" class="text-decoration-none">Services</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Service Booking</li>
-      </ol>
-    </nav>
+    <!-- Stepper Navigation Header -->
+    <div class="max-w-700 mx-auto mb-4 mb-md-5">
+      <div class="d-flex justify-content-between align-items-center position-relative">
+        <div class="progress position-absolute top-50 start-0 w-100 translate-middle-y z-0" style="height: 3px;">
+          <div class="progress-bar bg-primary" style="width: 33%;"></div>
+        </div>
 
-    <!-- Page Title -->
-    <div class="text-center mb-4 mb-md-5">
-      <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-2 rounded-pill mb-2 border border-primary-subtle">
-        Step 1 of Booking
-      </span>
-      <h1 class="display-6 fw-bold text-dark mb-2">Book Your Service</h1>
-      <p class="section-subtitle">
-        Fill in your contact and scheduling details below to proceed with your booking.
-      </p>
+        <div class="step-item text-center z-1 bg-white px-3">
+          <div class="step-circle bg-primary text-white fw-bold rounded-circle mx-auto d-flex align-items-center justify-content-center mb-1" style="width: 38px; height: 38px;">1</div>
+          <span class="small fw-bold text-primary">Booking Details</span>
+        </div>
+
+        <div class="step-item text-center z-1 bg-white px-3">
+          <div class="step-circle bg-light text-muted fw-bold border rounded-circle mx-auto d-flex align-items-center justify-content-center mb-1" style="width: 38px; height: 38px;">2</div>
+          <span class="small text-muted fw-semibold">Payment</span>
+        </div>
+
+        <div class="step-item text-center z-1 bg-white px-3">
+          <div class="step-circle bg-light text-muted fw-bold border rounded-circle mx-auto d-flex align-items-center justify-content-center mb-1" style="width: 38px; height: 38px;">3</div>
+          <span class="small text-muted fw-semibold">Confirmation</span>
+        </div>
+      </div>
     </div>
 
-    <!-- Booking Form Card -->
+    <!-- Booking Content Grid -->
     <div class="row g-4 justify-content-center">
-      <!-- Selected Service Summary Card -->
+      <!-- Selected Service & Promo Summary Sidebar -->
       <div class="col-12 col-lg-4">
-        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white sticky-lg-top" style="top: 100px;">
-          <h4 class="h5 text-dark fw-bold mb-3 pb-2 border-bottom">Selected Service</h4>
+        <div class="card border-0 shadow-lg rounded-4 p-4 bg-white sticky-lg-top" style="top: 90px; z-index: 10;">
+          <h4 class="h5 text-dark fw-bold mb-3 pb-2 border-bottom">Booking Summary</h4>
           
-          <div *ngIf="selectedService" class="mb-4">
-            <span class="badge bg-primary-subtle text-primary border px-2 py-1 rounded-pill small mb-2">
-              {{ selectedService.category }}
-            </span>
-            <h3 class="h5 text-dark fw-bold mb-2">{{ selectedService.name }}</h3>
-            <p class="text-muted small mb-3">{{ selectedService.description }}</p>
-
-            <div class="d-flex align-items-center justify-content-between p-3 bg-light rounded-3 mb-3">
-              <span class="text-muted small">Est. Duration</span>
-              <strong class="text-dark small">{{ selectedService.duration }}</strong>
+          <div *ngIf="selectedService" class="mb-3">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="badge bg-primary text-white extra-small fw-bold">{{ selectedService.category }}</span>
+              <span class="text-warning extra-small fw-bold">★ {{ selectedService.rating }}</span>
             </div>
+            <h3 class="h5 text-dark fw-bold mb-1">{{ selectedService.name }}</h3>
+            <div class="text-muted extra-small mb-3">Est. Duration: {{ selectedService.duration }}</div>
 
-            <div class="d-flex align-items-center justify-content-between p-3 bg-primary-subtle rounded-3">
-              <span class="text-dark font-semibold">Sample Flat Price</span>
-              <strong class="h4 text-primary fw-bold mb-0">${{ selectedService.price }}</strong>
+            <!-- Price Breakdown -->
+            <div class="p-3 bg-slate-50 rounded-3 mb-3 border">
+              <div class="d-flex justify-content-between text-secondary extra-small mb-1">
+                <span>Base Service Rate</span>
+                <span class="fw-semibold">₹{{ selectedService.price }}</span>
+              </div>
+
+              @if (selectedAddons.length > 0) {
+                @for (a of selectedAddons; track a.id) {
+                  <div class="d-flex justify-content-between text-secondary extra-small mb-1">
+                    <span>+ {{ a.name }}</span>
+                    <span class="fw-semibold">₹{{ a.price }}</span>
+                  </div>
+                }
+              }
+
+              @if (discountAmount > 0) {
+                <div class="d-flex justify-content-between text-success extra-small fw-bold my-1 pt-1 border-top border-dashed">
+                  <span>Promo Discount ({{ appliedCoupon }})</span>
+                  <span>-₹{{ discountAmount }}</span>
+                </div>
+              }
+
+              <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-2">
+                <span class="fw-bold text-dark">Total Amount Payable</span>
+                <span class="h4 text-primary fw-extrabold mb-0">₹{{ totalPrice }}</span>
+              </div>
             </div>
           </div>
 
-          <a routerLink="/services" class="btn btn-sm btn-outline-custom w-100 text-center mt-2">
-            Change Service
-          </a>
+          <!-- Promo Code Box -->
+          <div class="pt-2 border-top">
+            <label class="form-label extra-small fw-bold text-dark mb-1">HAVE A PROMO CODE?</label>
+            <div class="input-group mb-2">
+              <input type="text" class="form-control text-uppercase font-mono small" placeholder="e.g. WELCOME50" [(ngModel)]="couponInput" [disabled]="appliedCoupon !== null" />
+              <button *ngIf="!appliedCoupon" class="btn btn-dark btn-sm fw-bold px-3" type="button" (click)="applyCoupon()">Apply</button>
+              <button *ngIf="appliedCoupon" class="btn btn-outline-danger btn-sm" type="button" (click)="removeCoupon()">Remove</button>
+            </div>
+            @if (couponMessage) {
+              <div class="extra-small" [class.text-success]="isCouponSuccess" [class.text-danger]="!isCouponSuccess">
+                {{ couponMessage }}
+              </div>
+            }
+          </div>
         </div>
       </div>
 
       <!-- Form Inputs Column -->
       <div class="col-12 col-lg-8">
-        <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
+        <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5 bg-white">
           <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()" novalidate>
 
-            <!-- Service Selection Field -->
-            <div class="mb-4">
-              <label for="serviceId" class="form-label text-dark fw-semibold">Service Category & Name</label>
-              <select
-                id="serviceId"
-                formControlName="serviceId"
-                class="form-select py-2"
-                [ngClass]="{ 'is-invalid': isFieldInvalid('serviceId') }">
-                @for (s of availableServices; track s.id) {
-                  <option [value]="s.id">{{ s.name }} ({{ s.category }} - ${{ s.price }})</option>
-                }
-              </select>
+            <h5 class="fw-bold text-dark mb-3 pb-2 border-bottom">1. Select Service & City</h5>
+
+            <!-- Service & City Row -->
+            <div class="row g-3 mb-4">
+              <div class="col-12 col-md-7">
+                <label for="serviceId" class="form-label text-dark fw-semibold">Service</label>
+                <select
+                  id="serviceId"
+                  formControlName="serviceId"
+                  class="form-select py-2"
+                  [ngClass]="{ 'is-invalid': isFieldInvalid('serviceId') }">
+                  @for (s of availableServices; track s.id) {
+                    <option [value]="s.id">{{ s.name }} (₹{{ s.price }})</option>
+                  }
+                </select>
+              </div>
+
+              <div class="col-12 col-md-5">
+                <label for="city" class="form-label text-dark fw-semibold">City / Region *</label>
+                <select
+                  id="city"
+                  formControlName="city"
+                  class="form-select py-2"
+                  [ngClass]="{ 'is-invalid': isFieldInvalid('city') }">
+                  @for (c of cities; track c) {
+                    <option [value]="c">{{ c }}</option>
+                  }
+                </select>
+              </div>
             </div>
 
-            <h5 class="fw-bold text-dark mb-3 pt-2 border-top">Customer Details</h5>
+            <h5 class="fw-bold text-dark mb-3 pt-2 pb-2 border-bottom border-top">2. Customer Details</h5>
 
             <!-- Full Name -->
             <div class="mb-3">
@@ -80,7 +132,7 @@
                 id="customerName"
                 formControlName="customerName"
                 class="form-control py-2"
-                placeholder="e.g. Rahul Sharma"
+                placeholder="e.g. Rajesh Kumar"
                 [ngClass]="{ 'is-invalid': isFieldInvalid('customerName') }"
               />
               <div *ngIf="isFieldInvalid('customerName')" class="invalid-feedback">
@@ -91,17 +143,20 @@
             <!-- Phone & Email Row -->
             <div class="row g-3 mb-3">
               <div class="col-12 col-md-6">
-                <label for="customerPhone" class="form-label text-dark fw-semibold">Phone Number *</label>
-                <input
-                  type="tel"
-                  id="customerPhone"
-                  formControlName="customerPhone"
-                  class="form-control py-2"
-                  placeholder="10-digit mobile number (e.g. 9876543210)"
-                  [ngClass]="{ 'is-invalid': isFieldInvalid('customerPhone') }"
-                />
-                <div *ngIf="isFieldInvalid('customerPhone')" class="invalid-feedback">
-                  Please enter a valid 10-digit Indian mobile number.
+                <label for="customerPhone" class="form-label text-dark fw-semibold">Indian Mobile Number *</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light">+91</span>
+                  <input
+                    type="tel"
+                    id="customerPhone"
+                    formControlName="customerPhone"
+                    class="form-control py-2"
+                    placeholder="9876543210"
+                    [ngClass]="{ 'is-invalid': isFieldInvalid('customerPhone') }"
+                  />
+                </div>
+                <div *ngIf="isFieldInvalid('customerPhone')" class="text-danger extra-small mt-1">
+                  Enter a valid 10-digit Indian mobile number.
                 </div>
               </div>
 
@@ -112,7 +167,7 @@
                   id="customerEmail"
                   formControlName="customerEmail"
                   class="form-control py-2"
-                  placeholder="e.g. rahul@example.com"
+                  placeholder="e.g. rajesh@gmail.com"
                   [ngClass]="{ 'is-invalid': isFieldInvalid('customerEmail') }"
                 />
                 <div *ngIf="isFieldInvalid('customerEmail')" class="invalid-feedback">
@@ -121,27 +176,40 @@
               </div>
             </div>
 
-            <!-- Service Address -->
-            <div class="mb-4">
-              <label for="address" class="form-label text-dark fw-semibold">Service Address *</label>
-              <textarea
-                id="address"
-                formControlName="address"
-                rows="3"
-                class="form-control"
-                placeholder="House/Flat No., Building, Street Name, Area"
-                [ngClass]="{ 'is-invalid': isFieldInvalid('address') }"></textarea>
-              <div *ngIf="isFieldInvalid('address')" class="invalid-feedback">
-                Service address is required.
+            <!-- Service Address & Landmark -->
+            <div class="row g-3 mb-4">
+              <div class="col-12 col-md-8">
+                <label for="address" class="form-label text-dark fw-semibold">Complete Address *</label>
+                <input
+                  type="text"
+                  id="address"
+                  formControlName="address"
+                  class="form-control py-2"
+                  placeholder="Flat No, Building Name, Street / Sector"
+                  [ngClass]="{ 'is-invalid': isFieldInvalid('address') }" />
+                <div *ngIf="isFieldInvalid('address')" class="invalid-feedback">
+                  Service address is required.
+                </div>
+              </div>
+
+              <div class="col-12 col-md-4">
+                <label for="landmark" class="form-label text-dark fw-semibold">Nearby Landmark</label>
+                <input
+                  type="text"
+                  id="landmark"
+                  formControlName="landmark"
+                  class="form-control py-2"
+                  placeholder="e.g. Near Metro Station"
+                />
               </div>
             </div>
 
-            <h5 class="fw-bold text-dark mb-3 pt-2 border-top">Appointment Details</h5>
+            <h5 class="fw-bold text-dark mb-3 pt-2 pb-2 border-bottom border-top">3. Preferred Date & Time Slot</h5>
 
             <!-- Date & Time Row -->
             <div class="row g-3 mb-4">
               <div class="col-12 col-md-6">
-                <label for="preferredDate" class="form-label text-dark fw-semibold">Preferred Date *</label>
+                <label for="preferredDate" class="form-label text-dark fw-semibold">Service Date *</label>
                 <input
                   type="date"
                   id="preferredDate"
@@ -150,49 +218,41 @@
                   class="form-control py-2"
                   [ngClass]="{ 'is-invalid': isFieldInvalid('preferredDate') }"
                 />
-                <div *ngIf="isFieldInvalid('preferredDate')" class="invalid-feedback">
-                  <span *ngIf="bookingForm.get('preferredDate')?.hasError('required')">Preferred date is required.</span>
-                  <span *ngIf="bookingForm.get('preferredDate')?.hasError('pastDate')">Date cannot be in the past.</span>
-                </div>
               </div>
 
               <div class="col-12 col-md-6">
-                <label for="preferredTime" class="form-label text-dark fw-semibold">Preferred Time Slot *</label>
+                <label for="preferredTime" class="form-label text-dark fw-semibold">Arrival Time Window *</label>
                 <select
                   id="preferredTime"
                   formControlName="preferredTime"
                   class="form-select py-2"
                   [ngClass]="{ 'is-invalid': isFieldInvalid('preferredTime') }">
-                  <option value="" disabled>-- Select a Time Slot --</option>
                   @for (slot of timeSlots; track slot) {
                     <option [value]="slot">{{ slot }}</option>
                   }
                 </select>
-                <div *ngIf="isFieldInvalid('preferredTime')" class="invalid-feedback">
-                  Please select a time slot.
-                </div>
               </div>
             </div>
 
-            <!-- Special Notes -->
+            <!-- Special Instructions -->
             <div class="mb-4">
-              <label for="specialNotes" class="form-label text-dark fw-semibold">Special Notes / Instructions (Optional)</label>
+              <label for="specialNotes" class="form-label text-dark fw-semibold">Special Instructions for Technician (Optional)</label>
               <input
                 type="text"
                 id="specialNotes"
                 formControlName="specialNotes"
                 class="form-control py-2"
-                placeholder="Any specific requests or directions..."
+                placeholder="e.g. Please call before arriving, bring extra ladder..."
               />
             </div>
 
-            <!-- Submit Action -->
+            <!-- Submit Button -->
             <div class="pt-3 border-top d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3">
               <a routerLink="/services" class="btn btn-outline-custom w-100 w-sm-auto">
-                Cancel
+                ← Back
               </a>
               <button type="submit" class="btn btn-primary-custom btn-lg w-100 w-sm-auto">
-                Proceed to Payment
+                Continue to Payment →
               </button>
             </div>
           </form>

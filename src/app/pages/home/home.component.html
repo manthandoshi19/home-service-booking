@@ -1,52 +1,77 @@
 <!-- Hero Section -->
-<section id="home" class="hero-section section-padding bg-light border-bottom">
+<section id="home" class="hero-section section-padding bg-white border-bottom">
   <div class="container">
     <div class="row align-items-center g-4 g-lg-5">
       <div class="col-12 col-lg-6">
         <div class="pe-lg-3 text-center text-lg-start">
-          <span class="badge bg-primary-subtle text-primary fw-semibold px-3 py-2 rounded-pill mb-3 border border-primary-subtle">
-            Home Services Marketplace Project
+          <span class="badge bg-light text-primary fw-semibold px-3 py-1.5 rounded-pill mb-3 border">
+            India's Trusted Home Services
           </span>
+
           <h1 class="display-5 fw-bold text-dark mb-3">
-            Expert Home Services Delivered To Your Doorstep
+            Professional Home Services Delivered to Your Doorstep
           </h1>
-          <p class="lead text-secondary mb-4 mx-auto mx-lg-0" style="max-width: 540px;">
-            Connect with professionals for home cleaning, plumbing, electrical work, and AC repair. Simple flat pricing for every service category.
+
+          <p class="lead text-muted mb-4 mx-auto mx-lg-0" style="max-width: 540px;">
+            Book background-verified Indian technicians for home deep cleaning, AC servicing, plumbing, electrical repairs, wall painting & pest control.
           </p>
-          <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3">
-            <a routerLink="/services" class="btn btn-primary-custom btn-lg">
-              Browse Services
+
+          <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3 mb-4">
+            <a routerLink="/live-dispatch" class="btn btn-amber-custom btn-lg d-inline-flex align-items-center justify-content-center gap-2">
+              <span>⚡ Post Issue Live (Uber-Style)</span>
             </a>
-            <button class="btn btn-outline-custom btn-lg" (click)="scrollToSection('how-it-works')">
-              How It Works
-            </button>
+            <a routerLink="/services" class="btn btn-primary-custom btn-lg d-inline-flex align-items-center justify-content-center gap-2">
+              <span>Browse Catalog</span>
+            </a>
           </div>
-          <div class="mt-4 pt-2 d-flex flex-wrap justify-content-center justify-content-lg-start align-items-center gap-3 gap-md-4 text-muted small">
+
+          <!-- Trust Checkmarks -->
+          <div class="pt-3 border-top d-flex flex-wrap justify-content-center justify-content-lg-start gap-4 text-muted small">
             <div class="d-flex align-items-center gap-2">
-              <svg width="18" height="18" fill="currentColor" class="text-success" viewBox="0 0 16 16">
-                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-              </svg>
-              <span>Verified Professionals</span>
+              <span class="fw-bold text-success">✓</span>
+              <span>Offline Police Verified</span>
             </div>
             <div class="d-flex align-items-center gap-2">
-              <svg width="18" height="18" fill="currentColor" class="text-success" viewBox="0 0 16 16">
-                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-              </svg>
-              <span>Clear Flat Pricing</span>
+              <span class="fw-bold text-warning">★</span>
+              <span>4.9 / 5 Rating</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <span class="fw-bold text-primary">🛡️</span>
+              <span>₹10,000 Safety Guarantee</span>
             </div>
           </div>
         </div>
       </div>
       
+      <!-- Right Main Panel -->
       <div class="col-12 col-lg-6">
-        <div class="hero-image-box bg-white p-3 p-md-4 rounded-4 shadow-sm border text-center position-relative overflow-hidden">
-          <div class="hero-placeholder-inner p-4 p-md-5 bg-light rounded-3 d-flex flex-column align-items-center justify-content-center">
-            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-3">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-              <polyline points="9 22 9 12 15 12 15 22"></polyline>
-            </svg>
-            <h5 class="fw-semibold text-dark mb-1">Service Experience Showcase</h5>
-            <p class="text-muted small mb-0">At-home professional services at your convenient time</p>
+        <div class="card card-clean p-3 shadow-md">
+          <div class="rounded-2 overflow-hidden border mb-3">
+            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=900&auto=format&fit=crop" 
+                 alt="Indian Home Service Technician" 
+                 class="w-100 object-fit-cover" 
+                 style="height: 320px;" />
+          </div>
+
+          <div class="row g-2 text-center extra-small">
+            <div class="col-4">
+              <div class="p-2 bg-light rounded border">
+                <div class="fw-bold text-dark">60 Mins</div>
+                <div class="text-muted">Express Arrival</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="p-2 bg-light rounded border">
+                <div class="fw-bold text-dark">4.9 ★</div>
+                <div class="text-muted">Customer Rating</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="p-2 bg-light rounded border">
+                <div class="fw-bold text-success">Verified</div>
+                <div class="text-muted">Police Clearance</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -54,42 +79,152 @@
   </div>
 </section>
 
-<!-- Services Preview Section -->
-<section id="services" class="section-padding bg-white">
+<!-- Stats Bar -->
+<section class="py-4 bg-light border-bottom">
   <div class="container">
-    <div class="text-center mb-4 mb-md-5">
-      <h2 class="h1 text-dark mb-2">Our Home Service Categories</h2>
+    <div class="row row-cols-2 row-cols-md-4 g-3 text-center">
+      @for (stat of stats; track stat.label) {
+        <div class="col">
+          <div class="h3 fw-bold text-dark mb-0">{{ stat.value }}</div>
+          <div class="small text-muted">{{ stat.label }}</div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Customer Safety & Trust Assurance Section (Clean Light Grey Panel Layout) -->
+<section id="safety-assurance" class="section-padding bg-light border-bottom">
+  <div class="container">
+    <div class="text-center mb-5 max-w-800 mx-auto">
+      <span class="badge bg-white text-primary border fw-semibold px-3 py-1.5 rounded-pill mb-2">
+        SAFETY & TRUST ASSURANCE
+      </span>
+      <h2 class="h1 fw-bold text-dark mb-2">How We Guarantee Customer Safety</h2>
       <p class="section-subtitle">
-        Choose from our 4 core home service categories with sample flat pricing.
+        We conduct thorough offline verification checks before any technician steps into your home.
       </p>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-      @for (service of services; track service.id) {
-        <div class="col">
-          <div class="card h-100 border rounded-4 shadow-sm service-card">
-            <div class="card-body p-4 d-flex flex-column">
-              <div class="d-flex justify-content-between align-items-start mb-3">
-                <div class="service-icon-wrap bg-primary-subtle text-primary rounded-3 p-3 d-inline-flex">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path [attr.d]="service.iconSvg"></path>
+    <div class="row g-4">
+      <!-- Left Column: 3 Safety Pillars -->
+      <div class="col-12 col-lg-8">
+        <div class="d-flex flex-column gap-3">
+          @for (pillar of safetyPillars; track pillar.title) {
+            <div class="card card-clean p-4" style="border-left: 4px solid #0D9488;">
+              <div class="d-flex align-items-start gap-3">
+                <div class="bg-primary text-white rounded-2 p-2.5 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path [attr.d]="pillar.iconSvg"></path>
                   </svg>
                 </div>
-                <span class="badge bg-light text-secondary border px-2 py-1 rounded-pill small">
-                  {{ service.category }}
-                </span>
+                <div class="flex-grow-1">
+                  <div class="d-flex align-items-center gap-2 mb-1">
+                    <span class="badge bg-light text-dark border extra-small fw-semibold">{{ pillar.badge }}</span>
+                    <h3 class="h6 text-dark fw-bold mb-0">{{ pillar.title }}</h3>
+                  </div>
+                  <p class="text-muted small mb-3">{{ pillar.description }}</p>
+
+                  <div class="row row-cols-1 row-cols-md-2 g-2 pt-2 border-top">
+                    @for (detail of pillar.details; track detail) {
+                      <div class="col extra-small text-muted d-flex align-items-center gap-1">
+                        <span class="fw-bold text-success">✓</span>
+                        <span>{{ detail }}</span>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Right Column: Customer Feedback Side Panel -->
+      <div class="col-12 col-lg-4">
+        <div class="card card-clean p-4 h-100">
+          <h3 class="h6 fw-bold text-dark mb-2 pb-2 border-bottom">Verified Customer Feedback</h3>
+          <p class="extra-small text-muted mb-3">
+            How Indian homeowners feel about our offline security checks:
+          </p>
+
+          <div class="d-flex flex-column gap-3">
+            @for (rev of compactReviews; track rev.id) {
+              <div class="p-3 bg-light rounded-2 border">
+                <div class="d-flex align-items-center justify-content-between mb-1">
+                  <span class="extra-small text-warning">★★★★★</span>
+                  <span class="badge bg-white text-muted border extra-small">{{ rev.verifiedBadge }}</span>
+                </div>
+                <p class="extra-small text-muted mb-2">"{{ rev.comment }}"</p>
+                <div class="d-flex align-items-center gap-2">
+                  <img [src]="rev.avatarUrl" [alt]="rev.name" class="rounded-circle object-fit-cover" width="28" height="28" />
+                  <div class="extra-small font-semibold text-dark">{{ rev.name }} ({{ rev.location }})</div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="mt-4 pt-3 border-top text-center">
+            <div class="extra-small text-muted mb-2">Safety Helpline Number</div>
+            <a href="tel:18008905000" class="btn btn-outline-custom btn-sm w-100">
+              📞 Call Support: 1800-890-5000
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Services Categories Grid -->
+<section id="services" class="section-padding bg-white">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span class="badge bg-light text-primary border fw-semibold px-3 py-1.5 rounded-pill mb-2">TOP SERVICES</span>
+      <h2 class="h1 fw-bold text-dark mb-2">Popular Home Services</h2>
+      <p class="section-subtitle">
+        Flat pricing in INR. No hidden costs. Certified Indian technicians.
+      </p>
+    </div>
+
+    <!-- Category Filter Pills -->
+    <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+      @for (cat of categories; track cat) {
+        <button
+          type="button"
+          class="btn btn-sm px-3 py-1.5 rounded-pill transition-all fw-semibold"
+          [ngClass]="selectedCategory === cat ? 'btn-primary-custom' : 'btn-outline-secondary'"
+          (click)="selectCategory(cat)">
+          {{ cat }}
+        </button>
+      }
+    </div>
+
+    <!-- Filtered Services Grid -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      @for (service of filteredServices; track service.id) {
+        <div class="col">
+          <div class="card card-clean h-100">
+            <img [src]="service.imageUrl" [alt]="service.name" class="card-img-top" loading="lazy" (error)="onImgError($event)" />
+
+            <div class="card-body p-4 d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge border extra-small fw-semibold bg-light text-dark">{{ service.category }}</span>
+                <span class="fw-semibold small text-warning">★ {{ service.rating }}</span>
               </div>
 
               <h3 class="h5 text-dark fw-bold mb-2">{{ service.name }}</h3>
-              <p class="text-muted small flex-grow-1 mb-4">{{ service.description }}</p>
+              <p class="text-muted small flex-grow-1 mb-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                {{ service.description }}
+              </p>
 
               <div class="pt-3 border-top d-flex align-items-center justify-content-between mt-auto">
                 <div>
-                  <span class="text-xs text-muted d-block text-uppercase fw-semibold" style="font-size: 0.725rem;">Sample Flat Price</span>
-                  <span class="h4 text-primary fw-bold mb-0">${{ service.price }}</span>
+                  <span class="extra-small text-muted d-block">Flat Price</span>
+                  <span class="h4 fw-bold text-primary mb-0">₹{{ service.price }}</span>
                 </div>
-                <a [routerLink]="['/services', service.id]" class="btn btn-sm btn-outline-custom">
-                  View Details
+                <a [routerLink]="['/services', service.id]" class="btn btn-primary-custom btn-sm">
+                  Book Now
                 </a>
               </div>
             </div>
@@ -99,8 +234,8 @@
     </div>
 
     <div class="text-center mt-5">
-      <a routerLink="/services" class="btn btn-primary-custom btn-lg">
-        View All Services & Filter
+      <a routerLink="/services" class="btn btn-outline-custom">
+        View All Services & Filters →
       </a>
     </div>
   </div>
@@ -110,20 +245,20 @@
 <section id="how-it-works" class="section-padding bg-light border-top border-bottom">
   <div class="container">
     <div class="text-center mb-4 mb-md-5">
-      <h2 class="h1 text-dark mb-2">How It Works</h2>
+      <h2 class="h1 fw-bold text-dark mb-2">How Saterax Works</h2>
       <p class="section-subtitle">
-        Simple 4-step workflow to get professional home services scheduled.
+        Simple 4-step workflow designed for Indian households.
       </p>
     </div>
 
     <div class="row g-4">
       @for (step of howItWorksSteps; track step.step) {
         <div class="col-12 col-md-6 col-lg-3">
-          <div class="card h-100 border-0 shadow-sm bg-white rounded-4 p-4 text-center step-card">
-            <div class="step-badge mx-auto bg-primary text-white fw-bold rounded-circle d-flex align-items-center justify-content-center mb-3" style="width: 48px; height: 48px; font-size: 1.25rem;">
+          <div class="card card-clean h-100 p-4 text-center">
+            <div class="step-badge mx-auto bg-primary text-white fw-bold rounded-circle d-flex align-items-center justify-content-center mb-3 shadow-xs" style="width: 44px; height: 44px; font-size: 1.1rem;">
               {{ step.step }}
             </div>
-            <h4 class="h5 text-dark fw-semibold mb-2">{{ step.title }}</h4>
+            <h4 class="h6 text-dark fw-bold mb-2">{{ step.title }}</h4>
             <p class="text-muted small mb-0">{{ step.description }}</p>
           </div>
         </div>
@@ -132,48 +267,17 @@
   </div>
 </section>
 
-<!-- Why Choose Us Section -->
-<section id="why-us" class="section-padding bg-white">
+<!-- Call To Action Panel -->
+<section class="section-padding bg-white">
   <div class="container">
-    <div class="text-center mb-4 mb-md-5">
-      <h2 class="h1 text-dark mb-2">Why Choose Us</h2>
-      <p class="section-subtitle">
-        Designed for customer convenience, clear service delivery, and simple pricing.
-      </p>
-    </div>
-
-    <div class="row g-4">
-      @for (feature of whyChooseUsFeatures; track feature.title) {
-        <div class="col-12 col-md-6">
-          <div class="card h-100 border rounded-4 p-4 shadow-sm bg-light-subtle">
-            <div class="d-flex align-items-start gap-3">
-              <div class="feature-icon bg-primary text-white rounded-3 p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path [attr.d]="feature.iconSvg"></path>
-                </svg>
-              </div>
-              <div>
-                <h4 class="h5 text-dark fw-bold mb-2">{{ feature.title }}</h4>
-                <p class="text-muted small mb-0">{{ feature.description }}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      }
-    </div>
-  </div>
-</section>
-
-<!-- Call To Action Section -->
-<section class="section-padding bg-primary-subtle border-top">
-  <div class="container">
-    <div class="bg-white rounded-4 p-4 p-md-5 shadow-sm border text-center max-w-700 mx-auto">
-      <h2 class="h2 text-dark fw-bold mb-3">Ready to Book a Home Service?</h2>
+    <div class="card card-clean p-4 p-md-5 text-center max-w-700 mx-auto">
+      <span class="badge bg-light text-dark border fw-bold px-3 py-1 rounded-pill mb-2 align-self-center">PROMO CODE: WELCOME50</span>
+      <h2 class="h2 text-dark fw-bold mb-2">Get ₹300 OFF Your First Booking</h2>
       <p class="text-muted mb-4">
-        Browse our categories and pick the service that fits your home maintenance needs.
+        Apply code <strong>WELCOME50</strong> at checkout for flat ₹300 discount.
       </p>
-      <a routerLink="/services" class="btn btn-primary-custom btn-lg">
-        Explore All Services
+      <a routerLink="/services" class="btn btn-primary-custom btn-lg align-self-center">
+        Book Service
       </a>
     </div>
   </div>

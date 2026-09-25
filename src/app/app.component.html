@@ -1,33 +1,61 @@
 <!-- Header / Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm py-3">
+<nav class="navbar navbar-expand-lg navbar-clean sticky-top py-3">
   <div class="container">
-    <a class="navbar-brand d-flex align-items-center gap-2 text-primary-light" routerLink="/" (click)="navigateToSection('home')">
-      <div class="brand-badge bg-primary text-white rounded px-2 py-1 fs-6 fw-bold">HS</div>
-      <span class="fw-bold fs-5 text-white">{{ brandName }}</span>
+    <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/" (click)="navigateToSection('home')">
+      <div class="text-white rounded-2 px-2.5 py-1 fs-6 fw-bold shadow-xs" style="background-color: #0D9488;">
+        S
+      </div>
+      <div>
+        <span class="fw-bold fs-5 text-dark tracking-tight">{{ brandName }}</span>
+        <span class="badge ms-2 align-middle fw-bold px-2 py-0.5 rounded-pill extra-small" style="background-color: #FEF3C7; color: #92400E;">INDIA</span>
+      </div>
     </a>
+
+    <div class="d-none d-md-flex align-items-center gap-2 ms-lg-3 text-secondary extra-small px-3 py-1.5 rounded-pill border" style="background-color: #F0FDFA; border-color: #CCFBF1;">
+      <svg width="14" height="14" fill="#0D9488" viewBox="0 0 16 16">
+        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+      </svg>
+      <span class="text-slate-700 fw-medium">Serving: Mumbai, Delhi NCR, Bengaluru, Pune</span>
+    </div>
     
     <button class="navbar-toggler border-0 shadow-none" type="button" (click)="toggleNavbar()" aria-controls="primaryNavbar" [attr.aria-expanded]="!isNavCollapsed" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" [ngClass]="{ 'show': !isNavCollapsed }" id="primaryNavbar">
-      <ul class="navbar-nav ms-auto mb-3 mb-lg-0 me-lg-4 gap-lg-2">
+      <ul class="navbar-nav ms-auto mb-3 mb-lg-0 me-lg-3 gap-lg-1">
         <li class="nav-item">
-          <a class="nav-link text-light fw-medium px-lg-3" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="navigateToSection('home')">Home</a>
+          <a class="nav-link px-lg-3 py-2" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="navigateToSection('home')">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light fw-medium px-lg-3" routerLink="/services" routerLinkActive="active" (click)="isNavCollapsed = true">Services</a>
+          <a class="nav-link fw-bold px-lg-3 py-2 rounded-2 border" style="color: #B45309; background-color: #FFFBEB; border-color: #FDE68A;" routerLink="/live-dispatch" routerLinkActive="active" (click)="isNavCollapsed = true">
+            <span>⚡ Live Dispatch</span>
+            <span class="badge text-white extra-small rounded-pill ms-1" style="background-color: #D97706;">NEW</span>
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light fw-medium px-lg-3" (click)="navigateToSection('how-it-works')" style="cursor: pointer;">How It Works</a>
+          <a class="nav-link px-lg-3 py-2" routerLink="/services" routerLinkActive="active" (click)="isNavCollapsed = true">Services</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light fw-medium px-lg-3" (click)="navigateToSection('why-us')" style="cursor: pointer;">About / Why Us</a>
+          <a class="nav-link px-lg-3 py-2" (click)="navigateToSection('how-it-works')" style="cursor: pointer;">How It Works</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-lg-3 py-2" (click)="navigateToSection('safety-assurance')" style="cursor: pointer;">Safety & Trust</a>
         </li>
       </ul>
-      <div class="d-flex">
-        <a routerLink="/services" class="btn btn-primary-custom w-100 w-lg-auto text-center" (click)="isNavCollapsed = true">
-          Explore Services
+
+      <div class="d-flex align-items-center gap-3">
+        <a href="tel:18008905000" class="d-none d-xl-flex align-items-center gap-2 text-decoration-none text-slate-700 small fw-medium">
+          <span class="rounded-circle p-1.5 d-inline-flex text-white" style="background-color: #0D9488;">
+            <svg width="12" height="12" fill="white" viewBox="0 0 16 16">
+              <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/>
+            </svg>
+          </span>
+          <span>1800-890-5000</span>
+        </a>
+
+        <a routerLink="/live-dispatch" class="btn btn-amber-custom" (click)="isNavCollapsed = true">
+          Post Issue Live
         </a>
       </div>
     </div>
@@ -38,41 +66,58 @@
 <router-outlet></router-outlet>
 
 <!-- Footer -->
-<footer class="bg-dark text-light pt-5 pb-4 border-top border-secondary">
+<footer class="text-white pt-5 pb-4 border-top" style="background-color: #0F172A !important;">
   <div class="container">
     <div class="row g-4 mb-4">
-      <div class="col-12 col-md-5">
+      <div class="col-12 col-lg-4">
         <div class="d-flex align-items-center gap-2 mb-3">
-          <div class="brand-badge bg-primary text-white rounded px-2 py-1 fs-6 fw-bold">HS</div>
+          <div class="text-white rounded-2 px-2 py-1 fs-6 fw-bold" style="background-color: #0D9488;">S</div>
           <span class="fw-bold fs-5 text-white">{{ brandName }}</span>
         </div>
-        <p class="text-secondary small pe-md-4 mb-0">
-          Home services marketplace project connecting customers with professionals for cleaning, plumbing, electrical, and AC repair services.
+        <p class="text-slate-300 small pe-md-4 mb-3" style="color: #CBD5E1;">
+          Connecting Indian homeowners with background-verified technicians for cleaning, plumbing, electrical, AC servicing, and wall painting.
         </p>
+        <div class="small" style="color: #2DD4BF;">
+          ✓ Offline Address & Police Background Verified Technicians
+        </div>
       </div>
 
-      <div class="col-6 col-md-3">
-        <h5 class="text-white h6 fw-semibold mb-3">Quick Navigation</h5>
-        <ul class="list-unstyled small mb-0">
-          <li class="mb-2"><a routerLink="/" (click)="navigateToSection('home')" class="text-secondary text-decoration-none hover-white">Home</a></li>
-          <li class="mb-2"><a routerLink="/services" (click)="isNavCollapsed = true" class="text-secondary text-decoration-none hover-white">Services</a></li>
-          <li class="mb-2"><a (click)="navigateToSection('how-it-works')" class="text-secondary text-decoration-none hover-white" style="cursor: pointer;">How It Works</a></li>
-          <li class="mb-2"><a (click)="navigateToSection('why-us')" class="text-secondary text-decoration-none hover-white" style="cursor: pointer;">Why Choose Us</a></li>
+      <div class="col-6 col-md-3 col-lg-2">
+        <h5 class="text-white h6 fw-bold mb-3">Services</h5>
+        <ul class="list-unstyled small mb-0 d-flex flex-column gap-2">
+          <li><a routerLink="/live-dispatch" class="text-warning text-decoration-none fw-bold">⚡ Live Issue Matching</a></li>
+          <li><a routerLink="/services" [queryParams]="{category: 'Cleaning'}" class="text-slate-300 text-decoration-none hover-white">Home Deep Cleaning</a></li>
+          <li><a routerLink="/services" [queryParams]="{category: 'AC Repair'}" class="text-slate-300 text-decoration-none hover-white">AC Foam Servicing</a></li>
+          <li><a routerLink="/services" [queryParams]="{category: 'Plumbing'}" class="text-slate-300 text-decoration-none hover-white">Plumbing Repairs</a></li>
+          <li><a routerLink="/services" [queryParams]="{category: 'Electrical'}" class="text-slate-300 text-decoration-none hover-white">Electrical Wiring</a></li>
         </ul>
       </div>
 
-      <div class="col-6 col-md-4">
-        <h5 class="text-white h6 fw-semibold mb-3">Project Contact Placeholder</h5>
-        <ul class="list-unstyled small text-secondary mb-0">
-          <li class="mb-2">Support: support&#64;homeservices.example</li>
-          <li class="mb-2">Service Hours: Mon - Sat: 8:00 AM - 8:00 PM</li>
-          <li class="mb-2">Location: Regional Service Area</li>
+      <div class="col-6 col-md-3 col-lg-2">
+        <h5 class="text-white h6 fw-bold mb-3">Cities</h5>
+        <ul class="list-unstyled small text-slate-300 mb-0 d-flex flex-column gap-2" style="color: #CBD5E1;">
+          <li>Mumbai & Thane</li>
+          <li>Delhi NCR</li>
+          <li>Bengaluru</li>
+          <li>Hyderabad</li>
+          <li>Pune</li>
         </ul>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <h5 class="text-white h6 fw-bold mb-3">Contact Support</h5>
+        <div class="p-3 rounded-2 border border-secondary border-opacity-25 mb-2" style="background-color: rgba(255, 255, 255, 0.05);">
+          <div class="text-white fw-bold">Helpline: 1800-890-5000</div>
+          <div class="text-slate-400 small" style="color: #94A3B8;">Mon - Sun: 7:00 AM - 10:00 PM</div>
+        </div>
+        <div class="text-slate-400 extra-small" style="color: #94A3B8;">
+          Email: support&#64;saterax.in
+        </div>
       </div>
     </div>
 
-    <div class="pt-4 border-top border-secondary text-center text-secondary small">
-      <p class="mb-0">&copy; 2026 {{ brandName }}. All rights reserved.</p>
+    <div class="pt-4 border-top border-secondary border-opacity-25 text-center text-slate-400 small" style="color: #94A3B8;">
+      <p class="mb-0">&copy; 2026 {{ brandName }} Technologies Pvt. Ltd. All rights reserved.</p>
     </div>
   </div>
 </footer>

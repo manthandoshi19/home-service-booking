@@ -1,140 +1,158 @@
 <div class="confirmation-page section-padding bg-light min-vh-100">
   <div class="container">
-    <!-- Breadcrumb Navigation -->
-    <nav aria-label="breadcrumb" class="mb-4">
-      <ol class="breadcrumb small">
-        <li class="breadcrumb-item"><a routerLink="/" class="text-decoration-none">Home</a></li>
-        <li class="breadcrumb-item"><a routerLink="/services" class="text-decoration-none">Services</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Booking Confirmation</li>
-      </ol>
-    </nav>
-
-    <!-- Case A: Active Booking Found -->
-    <div *ngIf="booking; else noBooking">
-      <!-- Success Header Banner -->
+    @if (booking) {
+      <!-- Celebration Header -->
       <div class="text-center mb-4 mb-md-5">
-        <div class="success-icon-wrap bg-success text-white rounded-circle mx-auto d-flex align-items-center justify-content-center mb-3 shadow-xs" style="width: 72px; height: 72px;">
+        <div class="success-icon-wrap bg-success text-white rounded-circle mx-auto d-flex align-items-center justify-content-center mb-3 shadow-sm" style="width: 64px; height: 64px;">
           <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
         </div>
-        <span class="badge bg-success-subtle text-success fw-semibold px-3 py-2 rounded-pill mb-2 border border-success-subtle">
-          Step 3 of Booking — Complete
+        <span class="badge bg-success-subtle text-success fw-bold px-3 py-1.5 rounded-pill mb-2 border border-success-subtle">
+          🎉 BOOKING CONFIRMED & SCHEDULED
         </span>
-        <h1 class="display-6 fw-bold text-dark mb-2">Booking Confirmed</h1>
+        <h1 class="display-6 fw-bold text-dark mb-2">Thank You, {{ booking.customerName }}!</h1>
         <p class="section-subtitle">
-          Your home service booking has been successfully confirmed. Below are your booking details.
+          Your service has been scheduled. Ref ID: <strong>{{ booking.bookingReference }}</strong>.
         </p>
       </div>
 
-      <!-- Main Confirmation Card -->
-      <div class="row justify-content-center">
-        <div class="col-12 col-lg-8">
-          <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white mb-4">
-            
-            <!-- Reference Header Bar -->
-            <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between p-3 p-md-4 bg-primary-subtle rounded-3 mb-4 border border-primary-subtle gap-2">
+      <!-- Main Confirmation Grid -->
+      <div class="row g-4 justify-content-center">
+        <!-- Assigned Technician Card -->
+        <div class="col-12 col-lg-5">
+          <div class="card card-clean p-4 h-100">
+            <h3 class="h6 text-dark fw-bold mb-3 pb-2 border-bottom">Assigned Service Professional</h3>
+
+            <div class="d-flex align-items-center gap-3 p-3 bg-light border rounded-3 mb-3">
+              <img [src]="assignedTechnician.photoUrl" [alt]="assignedTechnician.name" class="rounded-circle object-fit-cover shadow-sm" width="56" height="56" />
               <div>
-                <span class="text-muted small d-block">Booking Reference ID</span>
-                <strong class="h4 text-primary fw-bold mb-0">{{ booking.bookingReference || 'BK-PENDING' }}</strong>
-              </div>
-              <div class="text-sm-end">
-                <span class="badge bg-success text-white px-3 py-2 rounded-pill">
-                  Paid — Simulated Payment
-                </span>
+                <h4 class="h6 text-dark fw-bold mb-0">{{ assignedTechnician.name }}</h4>
+                <div class="text-warning extra-small fw-bold">★ {{ assignedTechnician.rating }} / 5 ({{ assignedTechnician.jobsCompleted }}+ jobs)</div>
+                <span class="badge bg-success-subtle text-success extra-small">Offline Police Verified</span>
               </div>
             </div>
 
-            <!-- Service & Price Summary -->
-            <h4 class="h5 text-dark fw-bold mb-3 pb-2 border-bottom">Service Summary</h4>
-            <div class="row g-3 mb-4">
-              <div class="col-12 col-md-6">
-                <span class="text-muted small d-block">Selected Service:</span>
-                <span class="text-dark fw-bold h6 mb-0">{{ booking.serviceName }}</span>
-                <span class="badge bg-light text-muted border ms-2 small">{{ booking.serviceCategory }}</span>
-              </div>
-              <div class="col-12 col-md-6">
-                <span class="text-muted small d-block">Total Flat Rate:</span>
-                <span class="h4 text-primary fw-bold mb-0">${{ booking.servicePrice }}</span>
-              </div>
-              <div class="col-12 col-md-6">
-                <span class="text-muted small d-block">Estimated Duration:</span>
-                <span class="text-dark fw-medium">{{ booking.serviceDuration }}</span>
-              </div>
-              <div class="col-12 col-md-6">
-                <span class="text-muted small d-block">Appointment Slot:</span>
-                <span class="text-dark fw-medium">{{ booking.preferredDate }} | {{ booking.preferredTime }}</span>
+            <div class="p-3 bg-light rounded-3 mb-4 border">
+              <div class="extra-small text-muted mb-1">TECHNICIAN CONTACT</div>
+              <div class="fw-bold text-dark fs-6 mb-1">{{ assignedTechnician.phone }}</div>
+              <div class="extra-small text-muted">
+                Technician will call you 30 minutes prior to arrival at <strong>{{ booking.preferredTime }}</strong>.
               </div>
             </div>
 
-            <!-- Customer & Location Details -->
-            <h4 class="h5 text-dark fw-bold mb-3 pt-2 border-top border-bottom pb-2">Customer & Delivery Details</h4>
-            <div class="row g-3 mb-4">
-              <div class="col-12 col-md-6">
-                <span class="text-muted small d-block">Full Name:</span>
-                <span class="text-dark fw-medium">{{ booking.customerName }}</span>
+            <!-- HTML5 Canvas Customer Digital Signature Box (WT Unit-I & Unit-II Syllabus Feature) -->
+            <div class="pt-3 border-top mt-auto">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <label class="extra-small fw-bold text-dark">HTML5 DIGITAL SIGNATURE (CANVAS API)</label>
+                <button type="button" class="btn btn-link btn-sm p-0 extra-small text-danger text-decoration-none" (click)="clearSignature()">Clear</button>
               </div>
-              <div class="col-12 col-md-6">
-                <span class="text-muted small d-block">Contact Phone:</span>
-                <span class="text-dark fw-medium">{{ booking.customerPhone }}</span>
-              </div>
-              <div class="col-12 col-md-6">
-                <span class="text-muted small d-block">Email Address:</span>
-                <span class="text-dark fw-medium">{{ booking.customerEmail }}</span>
-              </div>
-              <div class="col-12 col-md-6">
-                <span class="text-muted small d-block">Service Address:</span>
-                <span class="text-dark fw-medium">{{ booking.address }}</span>
-              </div>
-              <div *ngIf="booking.specialNotes" class="col-12">
-                <span class="text-muted small d-block">Special Instructions:</span>
-                <span class="text-dark fst-italic">{{ booking.specialNotes }}</span>
-              </div>
+              <canvas #sigCanvas 
+                      width="300" 
+                      height="90" 
+                      class="bg-white border rounded-2 w-100 cursor-crosshair"
+                      (mousedown)="startDrawing($event)"
+                      (mousemove)="draw($event)"
+                      (mouseup)="stopDrawing()"
+                      (mouseleave)="stopDrawing()"
+                      (touchstart)="startDrawing($event)"
+                      (touchmove)="draw($event)"
+                      (touchend)="stopDrawing()"></canvas>
+              <div class="extra-small text-muted mt-1">Sign above to confirm receipt before printing.</div>
             </div>
-
-            <!-- Academic Payment Note -->
-            <div class="alert alert-info border-info small mb-0" role="alert">
-              <svg width="16" height="16" fill="currentColor" class="me-2" viewBox="0 0 16 16">
-                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-              </svg>
-              <strong>Academic Simulation Notice:</strong> Payment completed using the simulated QR payment flow. No actual currency or bank transfer occurred.
-            </div>
-
           </div>
+        </div>
 
-          <!-- Navigation Action Buttons -->
-          <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center gap-3 mt-4">
-            <a routerLink="/" class="btn btn-outline-custom px-4 py-2 w-100 w-sm-auto">
-              Back to Home
-            </a>
-            <a routerLink="/services" class="btn btn-primary-custom px-4 py-2 w-100 w-sm-auto">
-              Book Another Service
-            </a>
+        <!-- Receipt & Invoice Breakdown Card -->
+        <div class="col-12 col-lg-7">
+          <div class="card card-clean p-4 p-md-5">
+            <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom">
+              <div>
+                <span class="extra-small text-muted d-block">TAX INVOICE / RECEIPT</span>
+                <span class="h5 fw-bold text-dark mb-0">{{ booking.bookingReference }}</span>
+              </div>
+              <button class="btn btn-outline-custom btn-sm fw-semibold" (click)="printInvoice()">
+                🖨️ Print Invoice
+              </button>
+            </div>
+
+            <div class="row g-3 mb-4 extra-small">
+              <div class="col-6">
+                <span class="text-muted d-block">Service:</span>
+                <strong class="text-dark fs-6">{{ booking.serviceName }}</strong>
+              </div>
+              <div class="col-6">
+                <span class="text-muted d-block">Payment Method:</span>
+                <strong class="text-dark fs-6">{{ booking.paymentMethod || 'UPI / ONLINE' }}</strong>
+              </div>
+              <div class="col-6">
+                <span class="text-muted d-block">Scheduled Slot:</span>
+                <strong class="text-primary fs-6">{{ booking.preferredDate }} ({{ booking.preferredTime }})</strong>
+              </div>
+              <div class="col-6">
+                <span class="text-muted d-block">Service City:</span>
+                <strong class="text-dark fs-6">{{ booking.city || 'Mumbai' }}</strong>
+              </div>
+              <div class="col-12">
+                <span class="text-muted d-block">Service Location Address:</span>
+                <span class="text-dark fw-semibold">{{ booking.address }} @if (booking.landmark) { (Near {{ booking.landmark }}) }</span>
+              </div>
+            </div>
+
+            <!-- Itemized Receipt Table (Using Custom InrFormatPipe for Angular Unit-III Syllabus) -->
+            <div class="table-responsive mb-4">
+              <table class="table table-sm border align-middle extra-small mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>Item Description</th>
+                    <th class="text-end">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ booking.serviceName }} (Base Fee)</td>
+                    <td class="text-end fw-semibold">{{ booking.servicePrice | inrFormat }}</td>
+                  </tr>
+                  @if (booking.selectedAddons && booking.selectedAddons.length > 0) {
+                    @for (a of booking.selectedAddons; track a.name) {
+                      <tr>
+                        <td>+ {{ a.name }}</td>
+                        <td class="text-end fw-semibold">{{ a.price | inrFormat }}</td>
+                      </tr>
+                    }
+                  }
+                  @if (booking.discountAmount && booking.discountAmount > 0) {
+                    <tr class="table-success text-success">
+                      <td>Promo Discount ({{ booking.couponCode }})</td>
+                      <td class="text-end fw-bold">-{{ booking.discountAmount | inrFormat }}</td>
+                    </tr>
+                  }
+                  <tr class="table-light fw-bold fs-6">
+                    <td>Total Paid Amount</td>
+                    <td class="text-end text-primary">{{ (booking.totalPrice || booking.servicePrice) | inrFormat }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="d-flex flex-column flex-sm-row justify-content-between gap-3 pt-3 border-top">
+              <a routerLink="/" class="btn btn-outline-custom w-100 w-sm-auto">
+                Return to Home
+              </a>
+              <a routerLink="/services" class="btn btn-primary-custom w-100 w-sm-auto">
+                Book Another Service →
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Case B: Missing Booking State Handling -->
-    <ng-template #noBooking>
-      <div class="card border-0 shadow-sm rounded-4 p-5 text-center bg-white my-5 max-w-700 mx-auto">
-        <div class="py-4">
-          <div class="empty-icon-wrap bg-light text-muted rounded-circle mx-auto d-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
-            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="8" x2="12" y2="12"></line>
-              <line x1="12" y1="16" x2="12.01" y2="16"></line>
-            </svg>
-          </div>
-          <h3 class="h4 text-dark fw-bold mb-2">Booking Information Unavailable</h3>
-          <p class="text-muted small mb-4">
-            No active booking record was found. Please select a service and complete the booking process.
-          </p>
-          <a routerLink="/services" class="btn btn-primary-custom">
-            Back to Services
-          </a>
-        </div>
+    } @else {
+      <div class="card card-clean p-5 text-center my-5 max-w-700 mx-auto">
+        <h3 class="h4 text-dark fw-bold mb-2">No Active Booking Found</h3>
+        <p class="text-muted small mb-4">Please select a service to proceed with booking.</p>
+        <a routerLink="/services" class="btn btn-primary-custom">Browse Services</a>
       </div>
-    </ng-template>
+    }
   </div>
 </div>

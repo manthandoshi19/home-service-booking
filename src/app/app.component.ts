@@ -10,7 +10,7 @@ import { NgClass } from '@angular/common';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  brandName = '[BRAND NAME TO BE PROVIDED]';
+  brandName = 'Saterax India';
   isNavCollapsed = true;
 
   constructor(private router: Router) {}

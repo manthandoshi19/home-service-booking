@@ -1,0 +1,183 @@
+<div class="live-dispatch-page section-padding bg-light min-vh-100">
+  <div class="container">
+    <!-- Header Banner -->
+    <div class="text-center mb-4 mb-md-5 max-w-800 mx-auto">
+      <span class="badge bg-primary-subtle text-primary fw-bold px-3 py-1.5 rounded-pill mb-2">
+        ⚡ LIVE ON-DEMAND DISPATCH
+      </span>
+      <h1 class="h1 fw-bold text-dark mb-2">Post Your Issue & Get Matched Live</h1>
+      <p class="section-subtitle">
+        Describe your specific problem. Nearby offline-verified technicians view your issue in real-time and accept the job based on their past expertise!
+      </p>
+    </div>
+
+    <!-- Main Stepper Wizard -->
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-8">
+
+        <!-- STEP 1: Describe Issue -->
+        @if (step === 1) {
+          <div class="card card-clean p-4 p-md-5">
+            <h3 class="h5 fw-bold text-dark mb-4 border-bottom pb-3">1. Describe Your Problem</h3>
+
+            <div class="mb-4">
+              <label class="form-label extra-small fw-bold text-muted">SELECT PROBLEM CATEGORY</label>
+              <select class="form-select py-2 fw-semibold" [(ngModel)]="issueCategory">
+                <option value="Plumbing Leakage">💧 Plumbing Leakage / Pipe Burst</option>
+                <option value="AC Noise & Cooling Issue">❄️ AC Noise / Water Leak / No Cooling</option>
+                <option value="Electrical Switchboard Spark">⚡ Electrical Sparking / MCB Tripping</option>
+                <option value="Home Appliance Breakdown">🧺 Washing Machine / RO Purifier Fix</option>
+                <option value="Urgent Pest Control">🐜 Pest Infestation Emergency</option>
+              </select>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label extra-small fw-bold text-muted">DESCRIBE WHAT IS HAPPENING (IN YOUR OWN WORDS)</label>
+              <textarea class="form-control" rows="3" 
+                        [(ngModel)]="problemDescription" 
+                        placeholder="e.g. Water is dripping continuously from bathroom tap fixture and main valve is stuck..."></textarea>
+            </div>
+
+            <div class="row g-3 mb-4">
+              <div class="col-12 col-md-6">
+                <label class="form-label extra-small fw-bold text-muted">YOUR SERVICE LOCATION</label>
+                <input type="text" class="form-control py-2" [(ngModel)]="customerLocation" placeholder="Locality, City" />
+              </div>
+
+              <div class="col-12 col-md-6">
+                <label class="form-label extra-small fw-bold text-muted">DISPATCH URGENCY</label>
+                <div class="btn-group w-100">
+                  <button type="button" class="btn btn-sm" [class.btn-primary]="urgency === 'immediate'" [class.btn-outline-secondary]="urgency !== 'immediate'" (click)="urgency = 'immediate'">
+                    ⚡ Immediate (60 Min)
+                  </button>
+                  <button type="button" class="btn btn-sm" [class.btn-primary]="urgency === '2hours'" [class.btn-outline-secondary]="urgency !== '2hours'" (click)="urgency = '2hours'">
+                    Within 2 Hrs
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-primary-custom btn-lg w-100 py-3 d-flex align-items-center justify-content-center gap-2" (click)="startLiveScan()">
+              <span>Broadcast Issue to Nearby Verified Pros →</span>
+            </button>
+          </div>
+        }
+
+        <!-- STEP 2: Radar Search Simulation -->
+        @if (step === 2) {
+          <div class="card card-clean p-5 text-center">
+            <div class="radar-animation-wrap mx-auto mb-4 position-relative d-flex align-items-center justify-content-center" style="width: 120px; height: 120px;">
+              <div class="pulse-ring position-absolute w-100 h-100 rounded-circle border border-primary border-2"></div>
+              <div class="radar-core bg-primary text-white rounded-circle p-3 shadow-sm fs-3">
+                📡
+              </div>
+            </div>
+
+            <h3 class="h4 text-dark fw-bold mb-2">Broadcasting Issue to Nearby Experts...</h3>
+            <p class="text-muted small mb-4">
+              Scanning 14 offline-verified technicians within 5 km of <strong>{{ customerLocation }}</strong> for "{{ issueCategory }}"
+            </p>
+
+            <div class="progress bg-light mb-3 max-w-400 mx-auto" style="height: 8px;">
+              <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" [style.width.%]="radarScanProgress"></div>
+            </div>
+
+            <span class="badge bg-light text-muted border extra-small">Matching past experience & ratings...</span>
+          </div>
+        }
+
+        <!-- STEP 3: Live Acceptance & Expertise Cards -->
+        @if (step === 3) {
+          <div class="card card-clean p-4 p-md-5">
+            <div class="d-flex align-items-center justify-content-between mb-4 pb-3 border-bottom">
+              <div>
+                <span class="badge bg-success-subtle text-success extra-small fw-bold mb-1">LIVE ACCEPTANCES</span>
+                <h3 class="h5 fw-bold text-dark mb-0">Technicians Who Accepted Your Issue</h3>
+              </div>
+              <span class="extra-small text-muted">Select to Dispatch</span>
+            </div>
+
+            <div class="d-flex flex-column gap-3">
+              @for (tech of nearbyTechnicians; track tech.id) {
+                <div class="card card-clean p-4">
+                  <div class="row align-items-center g-3">
+                    <div class="col-12 col-md-3 text-center">
+                      <img [src]="tech.photoUrl" [alt]="tech.name" class="rounded-circle object-fit-cover shadow-sm border mb-2" width="70" height="70" />
+                      <div class="badge bg-warning-subtle text-warning-emphasis extra-small fw-bold">★ {{ tech.rating }} / 5</div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                      <div class="d-flex align-items-center gap-2 mb-1">
+                        <h4 class="h6 text-dark fw-bold mb-0">{{ tech.name }}</h4>
+                        <span class="badge bg-success-subtle text-success extra-small">✓ Police Verified</span>
+                      </div>
+
+                      <div class="text-primary extra-small fw-bold mb-2">{{ tech.trade }} ({{ tech.experienceYears }}+ Years Exp)</div>
+
+                      <!-- Expertise Pill Tags -->
+                      <div class="d-flex flex-wrap gap-2 mb-2">
+                        <span class="badge bg-light text-muted border extra-small">🏆 {{ tech.completedJobs }}+ Jobs Done</span>
+                        <span class="badge bg-light text-muted border extra-small">📍 {{ tech.distanceKm }} km away</span>
+                        <span class="badge bg-primary-subtle text-primary extra-small fw-bold">⚡ ETA: {{ tech.etaMins }} Mins</span>
+                      </div>
+
+                      <div class="extra-small text-muted fst-italic">
+                        Specialization: {{ tech.specialization }}
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-md-3 text-center text-md-end">
+                      <button class="btn btn-primary-custom btn-sm w-100 py-2 fw-bold" (click)="acceptTechnician(tech)">
+                        Accept & Dispatch →
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- STEP 4: Technician Matched -->
+        @if (step === 4 && selectedTechnician) {
+          <div class="card card-clean p-4 p-md-5 text-center">
+            <div class="badge bg-success text-white fw-bold px-3 py-1.5 rounded-pill mb-3 mx-auto max-w-200">
+              DISPATCH MATCHED & EN ROUTE
+            </div>
+
+            <h2 class="h3 text-dark fw-bold mb-2">{{ selectedTechnician.name }} Accepted Your Request!</h2>
+            <p class="text-muted small mb-4">
+              Technician is en route to <strong>{{ customerLocation }}</strong>. Estimated arrival in <strong>{{ selectedTechnician.etaMins }} minutes</strong>.
+            </p>
+
+            <!-- Matched Technician Card -->
+            <div class="card card-clean p-4 text-start mb-4 max-w-600 mx-auto bg-light">
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <img [src]="selectedTechnician.photoUrl" [alt]="selectedTechnician.name" class="rounded-circle object-fit-cover shadow-sm" width="56" height="56" />
+                <div>
+                  <h4 class="h6 text-dark fw-bold mb-0">{{ selectedTechnician.name }}</h4>
+                  <div class="text-primary extra-small fw-bold">{{ selectedTechnician.trade }}</div>
+                  <div class="text-warning extra-small">★ {{ selectedTechnician.rating }} ({{ selectedTechnician.completedJobs }}+ jobs completed)</div>
+                </div>
+              </div>
+
+              <!-- Security OTP Box -->
+              <div class="p-3 bg-white rounded-2 border d-flex align-items-center justify-content-between mb-2">
+                <span class="extra-small text-muted">SECURITY ARRIVAL OTP:</span>
+                <strong class="fs-4 text-primary font-mono tracking-widest">{{ matchedOtp }}</strong>
+              </div>
+              <div class="extra-small text-muted">
+                Share this 4-digit OTP with {{ selectedTechnician.name }} only after they arrive at your door.
+              </div>
+            </div>
+
+            <button class="btn btn-primary-custom btn-lg w-100 max-w-400 mx-auto py-3" (click)="confirmBookingWithMatchedTech()">
+              Proceed to Booking & Payment →
+            </button>
+          </div>
+        }
+
+      </div>
+    </div>
+  </div>
+</div>

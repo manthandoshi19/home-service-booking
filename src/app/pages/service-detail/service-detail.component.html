@@ -1,126 +1,223 @@
-<div class="service-detail-page section-padding bg-light min-vh-100">
-  <div class="container">
-    <!-- Found Service View -->
-    <div *ngIf="service; else notFound">
-      <!-- Breadcrumb Navigation -->
-      <nav aria-label="breadcrumb" class="mb-4">
-        <ol class="breadcrumb small">
-          <li class="breadcrumb-item"><a routerLink="/" class="text-decoration-none">Home</a></li>
-          <li class="breadcrumb-item"><a routerLink="/services" class="text-decoration-none">Services</a></li>
-          <li class="breadcrumb-item active" aria-current="page">{{ service.name }}</li>
-        </ol>
-      </nav>
+@if (service) {
+  <div class="service-detail-page bg-slate-50 min-vh-100 pb-5" style="background-color: #F8FAFC;">
+    <!-- Service Header Banner -->
+    <div class="bg-dark text-white py-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);">
+      <div class="container position-relative z-2">
+        <div class="row align-items-center g-4">
+          <div class="col-12 col-lg-7">
+            <nav aria-label="breadcrumb" class="mb-3">
+              <ol class="breadcrumb mb-0 extra-small">
+                <li class="breadcrumb-item"><a routerLink="/" class="text-white-50 text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item"><a routerLink="/services" class="text-white-50 text-decoration-none">Services</a></li>
+                <li class="breadcrumb-item active text-white" aria-current="page">{{ service.name }}</li>
+              </ol>
+            </nav>
 
-      <div class="row g-4">
-        <!-- Service Main Information -->
-        <div class="col-12 col-lg-8">
-          <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
-            <div class="d-flex align-items-center gap-3 mb-3">
-              <div class="service-icon-wrap bg-primary-subtle text-primary rounded-3 p-3">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path [attr.d]="service.iconSvg"></path>
-                </svg>
-              </div>
-              <div>
-                <span class="badge bg-light text-secondary border px-3 py-1 rounded-pill small mb-1">
-                  {{ service.category }}
-                </span>
-                <h1 class="h2 text-dark fw-bold mb-0">{{ service.name }}</h1>
-              </div>
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span class="badge bg-primary text-white fw-bold px-3 py-1 rounded-pill">{{ service.category }}</span>
+              <span class="badge bg-warning text-dark fw-bold px-2 py-1 rounded-pill">★ {{ service.rating }} / 5</span>
+              <span class="text-white-50 small">({{ service.reviewCount }} verified reviews)</span>
             </div>
 
-            <p class="lead text-secondary mb-4">{{ service.description }}</p>
+            <h1 class="display-5 fw-extrabold text-white mb-3">{{ service.name }}</h1>
+            <p class="lead text-slate-300 mb-4" style="color: #CBD5E1;">{{ service.description }}</p>
 
-            <hr class="my-4 text-border" />
-
-            <!-- Service Inclusions -->
-            <div class="mb-4">
-              <h3 class="h5 text-dark fw-bold mb-3">What's Included in This Service</h3>
-              <div class="row row-cols-1 row-cols-md-2 g-3">
-                @for (item of service.inclusions; track item) {
-                  <div class="col">
-                    <div class="d-flex align-items-start gap-2 p-3 bg-light rounded-3 h-100">
-                      <svg width="18" height="18" fill="currentColor" class="text-success mt-1 flex-shrink-0" viewBox="0 0 16 16">
-                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-                      </svg>
-                      <span class="small text-dark fw-medium">{{ item }}</span>
-                    </div>
-                  </div>
-                }
-              </div>
-            </div>
-
-            <!-- Service Metadata -->
-            <div class="p-3 bg-primary-subtle rounded-3 d-flex align-items-center gap-3">
-              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="text-primary" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
-              </svg>
-              <span class="small text-dark fw-medium">Estimated Duration: <strong>{{ service.duration }}</strong></span>
+            <div class="d-flex flex-wrap gap-4 text-white-50 small">
+              <div>⏱️ <strong>Duration:</strong> {{ service.duration }}</div>
+              <div>🛡️ <strong>Warranty:</strong> 30-Day Free Re-service</div>
+              <div>⚡ <strong>Arrival:</strong> Within 60 Minutes</div>
             </div>
           </div>
-        </div>
 
-        <!-- Pricing & Action Sidebar -->
-        <div class="col-12 col-lg-4">
-          <div class="card border-0 shadow-sm rounded-4 p-4 bg-white sticky-lg-top" style="top: 100px;">
-            <div class="text-center pb-3 border-bottom mb-4">
-              <span class="text-xs text-muted d-block text-uppercase fw-semibold mb-1" style="font-size: 0.75rem;">Sample Flat Price</span>
-              <h2 class="display-6 text-primary fw-bold mb-0">${{ service.price }}</h2>
-              <span class="badge bg-success-subtle text-success px-3 py-1 rounded-pill mt-2">Upfront Rate</span>
+          <div class="col-12 col-lg-5">
+            <div class="rounded-4 overflow-hidden border border-white border-opacity-25 shadow-lg position-relative">
+              <img [src]="service.imageUrl" [alt]="service.name" class="w-100 object-fit-cover" style="height: 300px;" (error)="onImgError($event)" />
             </div>
-
-            <div class="mb-4">
-              <div class="d-flex align-items-center gap-2 mb-2 text-muted small">
-                <svg width="16" height="16" fill="currentColor" class="text-primary" viewBox="0 0 16 16">
-                  <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-                </svg>
-                <span>Professional Doorstep Service</span>
-              </div>
-              <div class="d-flex align-items-center gap-2 mb-2 text-muted small">
-                <svg width="16" height="16" fill="currentColor" class="text-primary" viewBox="0 0 16 16">
-                  <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-                </svg>
-                <span>Simulated QR Payment Workflow</span>
-              </div>
-            </div>
-
-            <div class="d-grid gap-2">
-              <button class="btn btn-primary-custom btn-lg w-100" type="button" (click)="onBookService()">
-                Book This Service
-              </button>
-              <a routerLink="/services" class="btn btn-outline-custom w-100 text-center">
-                Back to Services
-              </a>
-            </div>
-            <p class="text-muted text-center small mt-3 mb-0" style="font-size: 0.8rem;">
-              Proceed to enter your address and schedule a date & time.
-            </p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Not Found View -->
-    <ng-template #notFound>
-      <div class="card border-0 shadow-sm rounded-4 p-5 text-center bg-white my-5 max-w-700 mx-auto">
-        <div class="py-4">
-          <div class="empty-icon-wrap bg-light text-muted rounded-circle mx-auto d-flex align-items-center justify-content-center mb-3" style="width: 64px; height: 64px;">
-            <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="15" y1="9" x2="9" y2="15"></line>
-              <line x1="9" y1="9" x2="15" y2="15"></line>
-            </svg>
+    <!-- Main Content Grid -->
+    <div class="container mt-4 mt-md-5">
+      <div class="row g-4">
+        <!-- Left Details Tabs & Content -->
+        <div class="col-12 col-lg-8">
+          <!-- Navigation Tabs -->
+          <div class="card border-0 shadow-sm rounded-4 p-2 mb-4 bg-white">
+            <ul class="nav nav-pills nav-fill gap-2">
+              <li class="nav-item">
+                <button class="nav-link fw-bold py-2 rounded-3" [class.active]="activeTab === 'overview'" (click)="activeTab = 'overview'">
+                  Overview
+                </button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link fw-bold py-2 rounded-3" [class.active]="activeTab === 'inclusions'" (click)="activeTab = 'inclusions'">
+                  Inclusions & Exclusions
+                </button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link fw-bold py-2 rounded-3" [class.active]="activeTab === 'process'" (click)="activeTab = 'process'">
+                  Work Process
+                </button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link fw-bold py-2 rounded-3" [class.active]="activeTab === 'faqs'" (click)="activeTab = 'faqs'">
+                  FAQs
+                </button>
+              </li>
+            </ul>
           </div>
-          <h3 class="h4 text-dark fw-bold mb-2">Service Not Found</h3>
-          <p class="text-muted small mb-4">
-            The service requested could not be located in our catalog.
-          </p>
-          <a routerLink="/services" class="btn btn-primary-custom">
-            Back to Services List
-          </a>
+
+          <!-- Tab 1: Overview -->
+          @if (activeTab === 'overview') {
+            <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+              <h3 class="h5 fw-bold text-dark mb-3">Service Inclusions Highlights</h3>
+              <ul class="list-unstyled mb-4">
+                @for (inc of service.inclusions; track inc) {
+                  <li class="d-flex align-items-start gap-3 mb-3">
+                    <span class="bg-success-subtle text-success p-1 rounded-circle flex-shrink-0">✓</span>
+                    <span class="text-secondary">{{ inc }}</span>
+                  </li>
+                }
+              </ul>
+
+              <!-- Recommended Add-ons Section -->
+              @if (service.addons && service.addons.length > 0) {
+                <div class="pt-4 border-top">
+                  <h4 class="h6 fw-bold text-dark mb-3">Optional Service Add-ons (Select to add)</h4>
+                  <div class="d-flex flex-column gap-3">
+                    @for (addon of service.addons; track addon.id) {
+                      <div class="card border rounded-3 p-3 bg-slate-50 transition-all cursor-pointer" 
+                           [class.border-primary]="isAddonSelected(addon.id)"
+                           (click)="toggleAddon(addon)">
+                        <div class="form-check d-flex align-items-center justify-content-between mb-0">
+                          <div>
+                            <input class="form-check-input me-2" type="checkbox" [checked]="isAddonSelected(addon.id)" [id]="addon.id">
+                            <label class="form-check-label fw-semibold text-dark cursor-pointer" [for]="addon.id">
+                              {{ addon.name }}
+                            </label>
+                          </div>
+                          <span class="fw-bold text-primary">+₹{{ addon.price }}</span>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
+
+          <!-- Tab 2: Inclusions & Exclusions -->
+          @if (activeTab === 'inclusions') {
+            <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+              <h3 class="h5 fw-bold text-dark mb-3 text-success">What is Included</h3>
+              <ul class="list-unstyled mb-4">
+                @for (inc of service.inclusions; track inc) {
+                  <li class="d-flex align-items-start gap-2 mb-2 text-secondary">
+                    <span class="text-success font-bold">✓</span> {{ inc }}
+                  </li>
+                }
+              </ul>
+
+              @if (service.exclusions && service.exclusions.length > 0) {
+                <h3 class="h5 fw-bold text-dark mb-3 text-danger pt-3 border-top">What is Excluded</h3>
+                <ul class="list-unstyled mb-0">
+                  @for (exc of service.exclusions; track exc) {
+                    <li class="d-flex align-items-start gap-2 mb-2 text-secondary">
+                      <span class="text-danger font-bold">✕</span> {{ exc }}
+                    </li>
+                  }
+                </ul>
+              }
+            </div>
+          }
+
+          <!-- Tab 3: Process -->
+          @if (activeTab === 'process') {
+            <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+              <h3 class="h5 fw-bold text-dark mb-4">4-Step Service Execution Process</h3>
+              <div class="d-flex flex-column gap-3">
+                @for (step of service.processSteps; track step) {
+                  <div class="p-3 bg-slate-50 border rounded-3 text-dark fw-medium">
+                    {{ step }}
+                  </div>
+                }
+              </div>
+            </div>
+          }
+
+          <!-- Tab 4: FAQs -->
+          @if (activeTab === 'faqs') {
+            <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+              <h3 class="h5 fw-bold text-dark mb-4">Frequently Asked Questions</h3>
+              <div class="accordion accordion-flush" id="serviceFaqs">
+                @for (faq of faqs; track faq.q; let i = $index) {
+                  <div class="accordion-item border rounded-3 mb-3">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed fw-bold text-dark" type="button" [attr.data-bs-toggle]="'collapse'" [attr.data-bs-target]="'#faqCollapse' + i">
+                        {{ faq.q }}
+                      </button>
+                    </h2>
+                    <div [id]="'faqCollapse' + i" class="accordion-collapse collapse" data-bs-parent="#serviceFaqs">
+                      <div class="accordion-body text-secondary small">
+                        {{ faq.a }}
+                      </div>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Right Sticky Summary Sidebar -->
+        <div class="col-12 col-lg-4">
+          <div class="card border-0 shadow-lg rounded-4 p-4 bg-white sticky-top" style="top: 90px; z-index: 10;">
+            <h3 class="h5 fw-bold text-dark mb-3">Booking Price Breakdown</h3>
+
+            <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom">
+              <span class="text-muted small">Base Service Rate</span>
+              <span class="fw-bold text-dark">₹{{ service.price }}</span>
+            </div>
+
+            @if (selectedAddons.length > 0) {
+              <div class="mb-2 pb-2 border-bottom">
+                <div class="text-muted extra-small mb-1 fw-bold">SELECTED ADD-ONS:</div>
+                @for (a of selectedAddons; track a.id) {
+                  <div class="d-flex justify-content-between align-items-center extra-small text-secondary mb-1">
+                    <span>+ {{ a.name }}</span>
+                    <span class="fw-semibold">₹{{ a.price }}</span>
+                  </div>
+                }
+              </div>
+            }
+
+            <div class="d-flex justify-content-between align-items-center my-3 pt-2">
+              <div>
+                <span class="text-muted extra-small d-block text-uppercase fw-bold">Estimated Total</span>
+                <span class="h3 text-primary fw-extrabold mb-0">₹{{ finalEstimatedPrice }}</span>
+              </div>
+              <span class="badge bg-success-subtle text-success border border-success border-opacity-25 px-2 py-1 rounded-pill extra-small">
+                Inclusive of Taxes
+              </span>
+            </div>
+
+            <button class="btn btn-primary-custom btn-lg w-100 mb-3" (click)="onBookService()">
+              Proceed to Schedule →
+            </button>
+
+            <div class="text-center text-muted extra-small">
+              🔒 Safe & Secure Checkout | Pay after Service option available
+            </div>
+          </div>
         </div>
       </div>
-    </ng-template>
+    </div>
   </div>
-</div>
+} @else {
+  <div class="container text-center py-5">
+    <h2>Service Not Found</h2>
+    <a routerLink="/services" class="btn btn-primary-custom mt-3">Back to Services</a>
+  </div>
+}
